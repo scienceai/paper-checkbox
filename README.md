@@ -1,5 +1,7 @@
 # `<PaperCheckbox />`
 
+[![Build Status](https://travis-ci.org/scienceai/paper-checkbox.svg?branch=master)](https://travis-ci.org/scienceai/paper-checkbox)
+
 ### Install
 ```
 npm install paper-checkbox
