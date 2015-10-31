@@ -8,32 +8,34 @@ import { jsdom } from 'jsdom';
 
 describe('PaperCheckbox', () => {
 
+  before(() => {
+    global.document = jsdom('<!doctype html><html><body></body></html>');
+    global.window = global.document.defaultView;
+  });
+
   describe('html output', () => {
 
     it('renders a div with className "paper-checkbox"', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox />);
+      shallowRenderer.render(<PaperCheckbox onClick={() => {}} />);
       let result = shallowRenderer.getRenderOutput();
       assert.equal(result.type, 'div');
       assert(result.props.className.match(/paper\-checkbox/));
     });
 
-    it('renders a nested div with className "checkbox"', () => {
+    it('renders a single child (a checkbox) when no children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox />);
+      shallowRenderer.render(<PaperCheckbox onClick={() => {}} />);
       let result = shallowRenderer.getRenderOutput();
-      let checkbox = result.props.children;
-      assert.equal(checkbox.type, 'div');
-      assert(checkbox.props.className.match(/checkbox/));
+      assert(result.props.children && !Array.isArray(result.props.children));
     });
 
-    it('renders a grandchild div with className "checkmark"', () => {
+    it('renders two children (a checkbox and a label) when children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox />);
+      shallowRenderer.render(<PaperCheckbox onClick={() => {}} children='click the checkbox' />);
       let result = shallowRenderer.getRenderOutput();
-      let checkmark = result.props.children.props.children;
-      assert.equal(checkmark.type, 'div');
-      assert(checkmark.props.className.match(/checkmark/));
+      assert(Array.isArray(result.props.children));
+      assert(result.props.children.length === 2);
     });
 
   });
@@ -42,21 +44,26 @@ describe('PaperCheckbox', () => {
 
     it('adds the "disabled" class to the parent div when disabled', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox disabled={true} />);
+      shallowRenderer.render(<PaperCheckbox onClick={() => {}} disabled={true} />);
       let result = shallowRenderer.getRenderOutput();
       assert(result.props.className.match(/disabled/));
     });
 
     it('adds the "checked" class to the checkbox div when checked', () => {
-      let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox checked={true} />);
-      let result = shallowRenderer.getRenderOutput();
-      let checkbox = result.props.children;
-      assert(checkbox.props.className.match(/checked/));
+      let instance = TestUtils.renderIntoDocument(<PaperCheckbox onClick={() => {}} checked={true} />);
+      let checkbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
+      assert(checkbox.className.match(/checkbox/));
+      assert(checkbox.className.match(/checked/));
+    });
+
+    it('renders children as a label', () => {
+      let instance = TestUtils.renderIntoDocument(<PaperCheckbox onClick={() => {}}>test label</PaperCheckbox>);
+      let checkbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
+      let label = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox-label');
+      assert.equal(label.textContent, 'test label');
     });
 
   });
-
 
   describe('behavior', () => {
     let Container = class extends React.Component {
@@ -69,7 +76,6 @@ describe('PaperCheckbox', () => {
         return (
           <div>
             <PaperCheckbox
-              ref='checkbox'
               checked={this.state.checked}
               onClick={() => this.setState({ checked: !this.state.checked })}
             />
@@ -78,16 +84,11 @@ describe('PaperCheckbox', () => {
       }
     };
 
-    before(() => {
-      global.document = jsdom('<!doctype html><html><body></body></html>');
-      global.window = global.document.defaultView;
-    });
-
     it('calls an onClick callback when clicked', () => {
       let instance = TestUtils.renderIntoDocument(<Container />);
       let container = TestUtils.findRenderedComponentWithType(instance, Container);
       let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
-      let domCheckbox = findDOMNode(container.refs.checkbox);
+      let domCheckbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
 
       assert.equal(reactCheckbox.props.checked, false);
 

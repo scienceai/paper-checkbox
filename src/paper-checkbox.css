@@ -8,15 +8,8 @@
 }
 
 .paper-checkbox {
-  display: inline-block;
   white-space: nowrap;
-  position: relative;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  transform: translateZ(0);
   vertical-align: middle;
-  background-color: var(--unchecked-background-color);
 }
 
 .paper-checkbox:focus {
@@ -25,6 +18,16 @@
 
 .hidden {
   display: none;
+}
+
+.paper-checkbox .checkbox-container {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  display: inline-block;
+  transform: translateZ(0);
+  background-color: var(--unchecked-background-color);
 }
 
 .paper-checkbox .checkbox {
@@ -38,7 +41,7 @@
   transition: background-color 140ms, border-color 140ms;
 }
 
-.checkbox.checked .checkmark {
+.paper-checkbox .checkbox.checked .checkmark {
   animation: checkmark-expand 140ms ease-out forwards;
 }
 
@@ -90,4 +93,13 @@
 .paper-checkbox.disabled .checkbox.checked {
   background-color: var(--unchecked-color);
   opacity: 0.5;
+}
+
+.paper-checkbox .checkbox-label {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 8px;
+  white-space: normal;
+  pointer-events: none;
 }
