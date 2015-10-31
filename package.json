@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/scienceai/paper-checkbox",
   "dependencies": {
-    "react": "^0.14.0-rc1"
+    "react": "^0.14.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
