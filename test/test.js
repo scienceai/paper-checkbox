@@ -17,7 +17,7 @@ describe('PaperCheckbox', () => {
 
     it('renders a div with className "paper-checkbox"', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox onClick={() => {}} />);
+      shallowRenderer.render(<PaperCheckbox />);
       let result = shallowRenderer.getRenderOutput();
       assert.equal(result.type, 'div');
       assert(result.props.className.match(/paper\-checkbox/));
@@ -25,17 +25,18 @@ describe('PaperCheckbox', () => {
 
     it('renders a single child (a checkbox) when no children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox onClick={() => {}} />);
+      shallowRenderer.render(<PaperCheckbox />);
       let result = shallowRenderer.getRenderOutput();
-      assert(result.props.children && !Array.isArray(result.props.children));
+      assert(Array.isArray(result.props.children));
+      assert.equal(result.props.children.filter(c => c).length, 1);
     });
 
     it('renders two children (a checkbox and a label) when children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox onClick={() => {}} children='click the checkbox' />);
+      shallowRenderer.render(<PaperCheckbox>click here</PaperCheckbox>);
       let result = shallowRenderer.getRenderOutput();
       assert(Array.isArray(result.props.children));
-      assert(result.props.children.length === 2);
+      assert.equal(result.props.children.length, 2);
     });
 
   });
@@ -44,20 +45,20 @@ describe('PaperCheckbox', () => {
 
     it('adds the "disabled" class to the parent div when disabled', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox onClick={() => {}} disabled={true} />);
+      shallowRenderer.render(<PaperCheckbox disabled={true} />);
       let result = shallowRenderer.getRenderOutput();
       assert(result.props.className.match(/disabled/));
     });
 
     it('adds the "checked" class to the checkbox div when checked', () => {
-      let instance = TestUtils.renderIntoDocument(<PaperCheckbox onClick={() => {}} checked={true} />);
+      let instance = TestUtils.renderIntoDocument(<PaperCheckbox checked={true} />);
       let checkbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
       assert(checkbox.className.match(/checkbox/));
       assert(checkbox.className.match(/checked/));
     });
 
     it('renders children as a label', () => {
-      let instance = TestUtils.renderIntoDocument(<PaperCheckbox onClick={() => {}}>test label</PaperCheckbox>);
+      let instance = TestUtils.renderIntoDocument(<PaperCheckbox>test label</PaperCheckbox>);
       let checkbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
       let label = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox-label');
       assert.equal(label.textContent, 'test label');

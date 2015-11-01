@@ -4,24 +4,17 @@ let { any, bool, func } = React.PropTypes;
 export default class PaperCheckbox extends React.Component {
   render() {
     let { children, disabled } = this.props;
-    if (children) {
-      return (
-        <div className={`paper-checkbox${disabled ? ' disabled' : ''}`}>
-          <Checkbox {...this.props} aria-labelledby='paper-checkbox-label' />
-          <Label {...this.props} />
-        </div>
-      );
-    } else {
-      return (
-        <div className={`paper-checkbox${disabled ? ' disabled' : ''}`}>
-          <Checkbox {...this.props} />
-        </div>
-      );
-    }
+    return (
+      <div className={`paper-checkbox${disabled ? ' disabled' : ''}`}>
+        <Checkbox {...this.props} />
+        {children && <Label {...this.props} />}
+      </div>
+    );
   }
 }
 PaperCheckbox.propTypes = {
-  children: any
+  children: any,
+  disabled: bool
 };
 
 class Checkbox extends React.Component {
@@ -30,6 +23,7 @@ class Checkbox extends React.Component {
     return (
       <div
         {...this.props}
+        id='paper-checkbox__checkbox'
         className='checkbox-container'
         role='checkbox'
         aria-checked={!!checked}
@@ -54,13 +48,13 @@ class Label extends React.Component {
   render() {
     let { children, disabled } = this.props;
     return (
-      <div
-        id='paper-checkbox-label'
+      <label
+        htmlFor='paper-checkbox__checkbox'
         className='checkbox-label'
         aria-disabled={!!disabled}
       >
         {children}
-      </div>
+      </label>
     );
   }
 }
