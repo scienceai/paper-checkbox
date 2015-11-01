@@ -1,10 +1,10 @@
 import assert from 'assert';
-import React from 'react';
-import { findDOMNode } from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
-import PaperCheckbox from '../src/paper-checkbox';
 import { jsdom } from 'jsdom';
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 
+import PaperCheckbox from '../src/paper-checkbox';
 
 describe('PaperCheckbox', () => {
 
