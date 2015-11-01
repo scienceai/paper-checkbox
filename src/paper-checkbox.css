@@ -27,6 +27,7 @@
   cursor: pointer;
   display: inline-block;
   transform: translateZ(0);
+  vertical-align: middle;
   background-color: var(--unchecked-background-color);
 }
 
