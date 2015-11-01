@@ -19,7 +19,8 @@ import PaperCheckbox from 'paper-checkbox';
 
 ### API
 * `checked: Boolean`: Optional. Determines whether the checkbox is displayed as checked or unchecked.
-* `disabled: Boolean`: Optional. Determines whether the.
+* `children: Any`: Optional. Used as a label for the checkbox.
+* `disabled: Boolean`: Optional. Determines whether the checkbox is disabled.
 * `onClick: Function`: Optional. Called when the `<PaperCheckbox>` component is clicked.
 
 ### Example
@@ -27,5 +28,7 @@ import PaperCheckbox from 'paper-checkbox';
 <PaperCheckbox
   checked={this.state.clicked}
   onClick={() => this.setState({ clicked: !this.state.clicked })}
-/>
+>
+  Checkmate
+</PaperCheckbox>
 ```

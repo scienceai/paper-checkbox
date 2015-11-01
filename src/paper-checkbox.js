@@ -47,7 +47,7 @@ class Checkbox extends React.Component {
 Checkbox.propTypes = {
   checked: bool,
   disabled: bool,
-  onClick: func.isRequired
+  onClick: func
 };
 
 class Label extends React.Component {
