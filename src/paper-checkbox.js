@@ -5,7 +5,7 @@ export default class PaperCheckbox extends React.Component {
   render() {
     let { children, disabled } = this.props;
     return (
-      <div className={`paper-checkbox${disabled ? ' disabled' : ''}`}>
+      <div className='paper-checkbox'>
         <Checkbox {...this.props} />
         {children && <Label {...this.props} />}
       </div>
@@ -31,7 +31,7 @@ class Checkbox extends React.Component {
         tabIndex='0'
         onClick={e => onClick(e)}
       >
-        <div className={`checkbox${checked ? ' checked' : ''}`}>
+        <div className='checkbox'>
           <div className='checkmark' />
         </div>
       </div>

@@ -42,7 +42,7 @@
   transition: background-color 140ms, border-color 140ms;
 }
 
-.paper-checkbox .checkbox.checked .checkmark {
+.paper-checkbox [aria-checked="true"] .checkbox .checkmark {
   animation: checkmark-expand 140ms ease-out forwards;
 }
 
@@ -62,7 +62,7 @@
   }
 }
 
-.paper-checkbox .checkbox.checked {
+.paper-checkbox [aria-checked="true"] .checkbox {
   background-color: var(--checked-color);
   border-color: var(--checked-color);
 }
@@ -82,18 +82,18 @@
   border-color: var(--checkmark-color);
 }
 
-.paper-checkbox.disabled {
+.paper-checkbox [aria-disabled="true"] {
   pointer-events: none;
 }
 
-.paper-checkbox.disabled .checkbox {
+.paper-checkbox [aria-disabled="true"] .checkbox {
   opacity: 0.5;
-  border-color: var(--unchecked-color);
+  border-color: black;
 }
 
-.paper-checkbox.disabled .checkbox.checked {
-  background-color: var(--unchecked-color);
+.paper-checkbox [aria-disabled="true"][aria-checked="true"] .checkbox {
   opacity: 0.5;
+  background-color: black;
 }
 
 .paper-checkbox .checkbox-label {
