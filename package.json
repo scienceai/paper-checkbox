@@ -1,6 +1,6 @@
 {
   "name": "paper-checkbox",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Paper Checkbox React component",
   "main": "index.js",
   "scripts": {

@@ -1,5 +1,5 @@
 import React from 'react';
-let { any, bool, func } = React.PropTypes;
+let { any, bool, func, string } = React.PropTypes;
 
 export default class PaperCheckbox extends React.Component {
   render() {
@@ -19,37 +19,57 @@ PaperCheckbox.propTypes = {
 
 class Checkbox extends React.Component {
   render() {
-    let { checked, disabled, onClick } = this.props;
-    return (
-      <div
-        {...this.props}
-        id='paper-checkbox__checkbox'
-        className='checkbox-container'
-        role='checkbox'
-        aria-checked={!!checked}
-        aria-disabled={!!disabled}
-        tabIndex='0'
-        onClick={e => onClick(e)}
-      >
-        <div className='checkbox'>
-          <div className='checkmark' />
-        </div>
+    let { checked, disabled, id, onClick } = this.props;
+    let checkbox = (
+      <div className='checkbox'>
+        <div className='checkmark' />
       </div>
     );
+    if (id) {
+      return (
+        <div
+          {...this.props}
+          id={id}
+          className='checkbox-container'
+          role='checkbox'
+          aria-checked={!!checked}
+          aria-disabled={!!disabled}
+          tabIndex='0'
+          onClick={e => onClick(e)}
+        >
+          {checkbox}
+        </div>
+      );
+    } else {
+      return (
+        <div
+          {...this.props}
+          className='checkbox-container'
+          role='checkbox'
+          aria-checked={!!checked}
+          aria-disabled={!!disabled}
+          tabIndex='0'
+          onClick={e => onClick(e)}
+        >
+          {checkbox}
+        </div>
+      );
+    }
   }
 }
 Checkbox.propTypes = {
   checked: bool,
   disabled: bool,
+  id: string,
   onClick: func
 };
 
 class Label extends React.Component {
   render() {
-    let { children, disabled } = this.props;
+    let { children, disabled, id } = this.props;
     return (
       <label
-        htmlFor='paper-checkbox__checkbox'
+        htmlFor={id}
         className='checkbox-label'
         aria-disabled={!!disabled}
       >
@@ -60,5 +80,6 @@ class Label extends React.Component {
 }
 Label.propTypes = {
   children: any.isRequired,
-  disabled: bool
+  disabled: bool,
+  id: string.isRequired
 };
