@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-js": "./node_modules/.bin/babel src/paper-checkbox.js -o dist/paper-checkbox.js",
-    "build-css": "./node_modules/.bin/cssnext src/paper-checkbox.css dist/paper-checkbox.css",
+    "build-css": "./node_modules/.bin/cssnext src/index.css dist/paper-checkbox.css",
     "prepublish": "rm -rf dist/ && mkdir dist && npm run build-js && npm run build-css",
     "test": "./node_modules/.bin/mocha --compilers js:babel/register"
   },

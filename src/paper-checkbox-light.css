@@ -1,0 +1,25 @@
+.paper-checkbox.light {
+  margin: 0;
+}
+
+.paper-checkbox.light .checkbox {
+  border: 2px solid transparent;
+}
+
+.paper-checkbox.light .checkmark {
+  border-color: whitesmoke;
+}
+
+.paper-checkbox.light:hover .checkbox .checkmark,
+.paper-checkbox.light:hover [aria-checked='true'] .checkbox .checkmark {
+  border-color: grey;
+}
+
+.paper-checkbox.light [aria-checked='true'] .checkbox {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.paper-checkbox.light [aria-checked='true'] .checkbox .checkmark {
+  border-color: black;
+}

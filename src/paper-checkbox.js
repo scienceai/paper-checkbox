@@ -3,9 +3,10 @@ let { any, bool, func, string } = React.PropTypes;
 
 export default class PaperCheckbox extends React.Component {
   render() {
-    let { children, disabled } = this.props;
+    let { children, disabled, theme } = this.props;
+    let classes = `paper-checkbox${theme ? ` ${theme}` : ''}`;
     return (
-      <div className='paper-checkbox'>
+      <div className={classes}>
         <Checkbox {...this.props} />
         {children && <Label {...this.props} />}
       </div>
@@ -14,7 +15,8 @@ export default class PaperCheckbox extends React.Component {
 }
 PaperCheckbox.propTypes = {
   children: any,
-  disabled: bool
+  disabled: bool,
+  theme: string
 };
 
 class Checkbox extends React.Component {
