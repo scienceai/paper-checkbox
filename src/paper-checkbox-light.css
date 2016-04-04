@@ -2,6 +2,12 @@
   margin: 0;
 }
 
+.paper-checkbox.light .checkbox-container:focus{
+  outline: none;
+  background-color: rgba(0,0,0,.1);
+  border-radius: 50%;
+}
+
 .paper-checkbox.light .checkbox {
   border: 2px solid transparent;
 }

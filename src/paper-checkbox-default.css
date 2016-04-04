@@ -31,6 +31,10 @@
   background-color: var(--unchecked-background-color);
 }
 
+.paper-checkbox .checkbox-container:focus{
+  outline: none;
+}
+
 .paper-checkbox .checkbox {
   position: relative;
   box-sizing: border-box;
