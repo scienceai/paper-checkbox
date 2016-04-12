@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-js": "NODE_ENV=production babel src/paper-checkbox.js -o dist/paper-checkbox.js",
-    "build-css": "postcss --use postcss-import --use postcss-cssnext --no-map -o ./dist/index.css ./src/index.css",
+    "build-css": "postcss --use postcss-import --use postcss-cssnext --no-map -o ./dist/paper-checkbox.css ./src/index.css",
     "prepublish": "rm -rf dist/ && mkdir dist && npm run build-js && npm run build-css",
     "test": "mocha --compilers js:babel-register"
   },
