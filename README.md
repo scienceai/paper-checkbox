@@ -23,6 +23,7 @@ import PaperCheckbox from 'paper-checkbox';
 * `disabled: Boolean`: Optional. Determines whether the checkbox is disabled.
 * `id: String`: Required if using a label, optional otherwise.
 * `onClick: Function`: Optional. Called when the `<PaperCheckbox>` component is clicked.
+* `theme: String`: Optional. Accepts 'light' to add a light theme. Default theme is dark.
 
 ### Example
 ```js
