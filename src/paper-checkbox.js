@@ -1,9 +1,10 @@
 import React from 'react';
 let { any, bool, func, string } = React.PropTypes;
 
+// eslint-disable-next-line react/prefer-stateless-function
 export default class PaperCheckbox extends React.Component {
   render() {
-    let { children, disabled, theme } = this.props;
+    let { children, theme } = this.props;
     let classes = `paper-checkbox${theme ? ` ${theme}` : ''}`;
     return (
       <div className={classes}>
@@ -16,72 +17,66 @@ export default class PaperCheckbox extends React.Component {
 PaperCheckbox.propTypes = {
   children: any,
   disabled: bool,
-  theme: string
+  theme: string,
 };
 
-class Checkbox extends React.Component {
-  render() {
-    let { checked, disabled, id, onClick } = this.props;
-    let checkbox = (
-      <div className='checkbox'>
-        <div className='checkmark' />
+function Checkbox({ checked, disabled, id, onClick, ...props }) {
+  let checkbox = (
+    <div className="checkbox">
+      <div className="checkmark" />
+    </div>
+  );
+  if (id) {
+    return (
+      <div
+        {...props}
+        id={id}
+        className="checkbox-container"
+        role="checkbox"
+        aria-checked={!!checked}
+        aria-disabled={!!disabled}
+        tabIndex="0"
+        onClick={e => onClick(e)}
+      >
+        {checkbox}
       </div>
     );
-    if (id) {
-      return (
-        <div
-          {...this.props}
-          id={id}
-          className='checkbox-container'
-          role='checkbox'
-          aria-checked={!!checked}
-          aria-disabled={!!disabled}
-          tabIndex='0'
-          onClick={e => onClick(e)}
-        >
-          {checkbox}
-        </div>
-      );
-    } else {
-      return (
-        <div
-          {...this.props}
-          className='checkbox-container'
-          role='checkbox'
-          aria-checked={!!checked}
-          aria-disabled={!!disabled}
-          tabIndex='0'
-          onClick={e => onClick(e)}
-        >
-          {checkbox}
-        </div>
-      );
-    }
   }
+
+  return (
+    <div
+      {...props}
+      className="checkbox-container"
+      role="checkbox"
+      aria-checked={!!checked}
+      aria-disabled={!!disabled}
+      tabIndex="0"
+      onClick={e => onClick(e)}
+    >
+      {checkbox}
+    </div>
+  );
 }
 Checkbox.propTypes = {
   checked: bool,
   disabled: bool,
   id: string,
-  onClick: func
+  onClick: func,
 };
 
-class Label extends React.Component {
-  render() {
-    let { children, disabled, id } = this.props;
-    return (
-      <label
-        htmlFor={id}
-        className='checkbox-label'
-        aria-disabled={!!disabled}
-      >
-        {children}
-      </label>
-    );
-  }
+function Label({ children, disabled, id }) {
+  return (
+    <label
+      htmlFor={id}
+      className="checkbox-label"
+      aria-disabled={!!disabled}
+    >
+      {children}
+    </label>
+  );
 }
 Label.propTypes = {
   children: any.isRequired,
   disabled: bool,
-  id: string.isRequired
+  id: string.isRequired,
 };

@@ -1,21 +1,8 @@
 {
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "mocha": true,
-    "node": true
+  "extends": "scienceai",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
   },
-  "rules": {
-    "strict": 0,
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
-    "react/jsx-sort-prop-types": 2,
-    "react/prop-types": 2,
-    "quotes": [2, "single"],
-    "semi": [2, "always"]
-  },
-  "plugins": [
-    "react"
-  ]
 }

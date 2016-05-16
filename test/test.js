@@ -2,19 +2,16 @@ import assert from 'assert';
 import { jsdom } from 'jsdom';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
 import PaperCheckbox from '../src/paper-checkbox';
 
 describe('PaperCheckbox', () => {
-
   before(() => {
     global.document = jsdom('<!doctype html><html><body></body></html>');
     global.window = global.document.defaultView;
   });
 
   describe('html output', () => {
-
     it('renders a div with className "paper-checkbox"', () => {
       let shallowRenderer = TestUtils.createRenderer();
       shallowRenderer.render(<PaperCheckbox />);
@@ -33,23 +30,19 @@ describe('PaperCheckbox', () => {
 
     it('renders two children (a checkbox and a label) when children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox id='x'>click here</PaperCheckbox>);
+      shallowRenderer.render(<PaperCheckbox id="x">click here</PaperCheckbox>);
       let result = shallowRenderer.getRenderOutput();
       assert(Array.isArray(result.props.children));
       assert.equal(result.props.children.length, 2);
     });
-
   });
 
   describe('props', () => {
-
     it('renders children as a label', () => {
-      let instance = TestUtils.renderIntoDocument(<PaperCheckbox id='y'>test label</PaperCheckbox>);
-      let checkbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
+      let instance = TestUtils.renderIntoDocument(<PaperCheckbox id="y">test label</PaperCheckbox>);
       let label = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox-label');
       assert.equal(label.textContent, 'test label');
     });
-
   });
 
   describe('behavior', () => {
@@ -73,19 +66,16 @@ describe('PaperCheckbox', () => {
 
     it('calls an onClick callback when clicked', () => {
       let instance = TestUtils.renderIntoDocument(<Container />);
-      let container = TestUtils.findRenderedComponentWithType(instance, Container);
       let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
       let domCheckbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
 
       assert.equal(reactCheckbox.props.checked, false);
 
-			TestUtils.Simulate.click(domCheckbox);
+      TestUtils.Simulate.click(domCheckbox);
       assert.equal(reactCheckbox.props.checked, true);
 
-			TestUtils.Simulate.click(domCheckbox);
+      TestUtils.Simulate.click(domCheckbox);
       assert.equal(reactCheckbox.props.checked, false);
     });
-
   });
-
 });
