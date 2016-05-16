@@ -58,13 +58,15 @@ describe('PaperCheckbox', () => {
             <PaperCheckbox
               checked={this.state.checked}
               onClick={() => this.setState({ checked: !this.state.checked })}
-            />
+            >
+              Click the label too
+            </PaperCheckbox>
           </div>
         );
       }
     };
 
-    it('calls an onClick callback when clicked', () => {
+    it('calls the onClick callback when clicked', () => {
       let instance = TestUtils.renderIntoDocument(<Container />);
       let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
       let domCheckbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
@@ -75,6 +77,20 @@ describe('PaperCheckbox', () => {
       assert.equal(reactCheckbox.props.checked, true);
 
       TestUtils.Simulate.click(domCheckbox);
+      assert.equal(reactCheckbox.props.checked, false);
+    });
+
+    it('calls the onClick callback when the label is present and clicked', () => {
+      let instance = TestUtils.renderIntoDocument(<Container />);
+      let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
+      let domLabel = TestUtils.findRenderedDOMComponentWithTag(instance, 'label');
+
+      assert.equal(reactCheckbox.props.checked, false);
+
+      TestUtils.Simulate.click(domLabel);
+      assert.equal(reactCheckbox.props.checked, true);
+
+      TestUtils.Simulate.click(domLabel);
       assert.equal(reactCheckbox.props.checked, false);
     });
   });

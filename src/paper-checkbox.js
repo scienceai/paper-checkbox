@@ -64,12 +64,13 @@ Checkbox.propTypes = {
   onClick: func,
 };
 
-function Label({ children, disabled, id }) {
+function Label({ children, disabled, id, onClick }) {
   return (
     <label
       htmlFor={id}
       className="checkbox-label"
       aria-disabled={!!disabled}
+      onClick={e => onClick(e)}
     >
       {children}
     </label>
@@ -79,4 +80,5 @@ Label.propTypes = {
   children: any.isRequired,
   disabled: bool,
   id: string.isRequired,
+  onClick: func.isRequired,
 };
