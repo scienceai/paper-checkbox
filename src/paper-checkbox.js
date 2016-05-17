@@ -4,12 +4,12 @@ let { any, bool, func, string } = React.PropTypes;
 // eslint-disable-next-line react/prefer-stateless-function
 export default class PaperCheckbox extends React.Component {
   render() {
-    let { children, theme } = this.props;
+    let { children, theme, ...props } = this.props;
     let classes = `paper-checkbox${theme ? ` ${theme}` : ''}`;
     return (
       <div className={classes}>
-        <Checkbox {...this.props} />
-        {children && <Label {...this.props} />}
+        <Checkbox {...props} />
+        {children && <Label {...props} children={children} />}
       </div>
     );
   }
@@ -36,12 +36,15 @@ function Checkbox({ checked, disabled, id, onClick, ...props }) {
         aria-checked={!!checked}
         aria-disabled={!!disabled}
         tabIndex="0"
-        onClick={e => onClick(e)}
-        onKeyDown={e => {
-          if (e.key === 'Space') {
-            onClick(e);
-          }
-        }}
+        onClick={!disabled ? e => onClick(e) : null}
+        onKeyDown={!disabled ?
+          (e) => {
+            if (e.key === 'Space') {
+              onClick(e);
+            }
+          } :
+          null
+        }
       >
         {checkbox}
       </div>
@@ -56,7 +59,7 @@ function Checkbox({ checked, disabled, id, onClick, ...props }) {
       aria-checked={!!checked}
       aria-disabled={!!disabled}
       tabIndex="0"
-      onClick={e => onClick(e)}
+      onClick={!disabled ? e => onClick(e) : null}
     >
       {checkbox}
     </div>
@@ -75,7 +78,7 @@ function Label({ children, disabled, id, onClick }) {
       htmlFor={id}
       className="checkbox-label"
       aria-disabled={!!disabled}
-      onClick={e => onClick(e)}
+      onClick={!disabled ? e => onClick(e) : null}
     >
       {children}
     </label>

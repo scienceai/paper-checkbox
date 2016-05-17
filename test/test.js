@@ -54,7 +54,7 @@ describe('PaperCheckbox', () => {
   });
 
   describe('behavior', () => {
-    let Container = class extends React.Component {
+    class Container extends React.Component {
       constructor(props, context) {
         super(props, context);
         this.state = { checked: false };
@@ -73,7 +73,33 @@ describe('PaperCheckbox', () => {
           </div>
         );
       }
-    };
+    }
+
+    let counter = 0;
+    class ReadOnlyContainer extends React.Component {
+      constructor(props, context) {
+        super(props, context);
+        this.state = { checked: true };
+      }
+
+      render() {
+        return (
+          <div>
+            <PaperCheckbox
+              id="my-checkbox"
+              checked={this.state.checked}
+              disabled={true}
+              onClick={() => {
+                counter += 1;
+                this.setState({ checked: !this.state.checked });
+              }}
+            >
+              Checkmate
+            </PaperCheckbox>
+          </div>
+        );
+      }
+    }
 
     it('calls the onClick callback when clicked', () => {
       let instance = TestUtils.renderIntoDocument(<Container />);
@@ -116,6 +142,26 @@ describe('PaperCheckbox', () => {
 
       TestUtils.Simulate.keyDown(domCheckbox, { key: 'Space', keyCode: 32, which: 32 });
       assert.equal(reactCheckbox.props.checked, false);
+    });
+
+    it('never calls the onClick callback when disabled', () => {
+      let instance = TestUtils.renderIntoDocument(<ReadOnlyContainer />);
+      let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
+      let domCheckbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
+      let domLabel = TestUtils.findRenderedDOMComponentWithTag(instance, 'label');
+
+      assert.equal(reactCheckbox.props.checked, true);
+      assert.equal(counter, 0);
+
+      TestUtils.Simulate.click(domCheckbox);
+      assert.equal(reactCheckbox.props.checked, true);
+      assert.equal(counter, 0);
+      TestUtils.Simulate.click(domLabel);
+      assert.equal(reactCheckbox.props.checked, true);
+      assert.equal(counter, 0);
+      TestUtils.Simulate.keyDown(domCheckbox, { key: 'Space', keyCode: 32, which: 32 });
+      assert.equal(reactCheckbox.props.checked, true);
+      assert.equal(counter, 0);
     });
   });
 });
