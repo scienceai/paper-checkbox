@@ -20,37 +20,7 @@ PaperCheckbox.propTypes = {
   theme: string,
 };
 
-function Checkbox({ checked, disabled, id, onClick, ...props }) {
-  let checkbox = (
-    <div className="checkbox">
-      <div className="checkmark" />
-    </div>
-  );
-  if (id) {
-    return (
-      <div
-        {...props}
-        id={id}
-        className="checkbox-container"
-        role="checkbox"
-        aria-checked={!!checked}
-        aria-disabled={!!disabled}
-        tabIndex="0"
-        onClick={!disabled ? e => onClick(e) : null}
-        onKeyDown={!disabled ?
-          (e) => {
-            if (e.key === 'Space') {
-              onClick(e);
-            }
-          } :
-          null
-        }
-      >
-        {checkbox}
-      </div>
-    );
-  }
-
+function Checkbox({ checked, disabled, onClick, ...props }) {
   return (
     <div
       {...props}
@@ -60,8 +30,18 @@ function Checkbox({ checked, disabled, id, onClick, ...props }) {
       aria-disabled={!!disabled}
       tabIndex="0"
       onClick={!disabled ? e => onClick(e) : null}
+      onKeyDown={!disabled ?
+        (e) => {
+          if (e.key === 'Space') {
+            onClick(e);
+          }
+        } :
+        null
+      }
     >
-      {checkbox}
+      <div className="checkbox">
+        <div className="checkmark" />
+      </div>
     </div>
   );
 }
