@@ -102,5 +102,20 @@ describe('PaperCheckbox', () => {
       TestUtils.Simulate.click(domLabel);
       assert.equal(reactCheckbox.props.checked, false);
     });
+
+    it('calls the onClick callback when focused and Space is pressed', () => {
+      let instance = TestUtils.renderIntoDocument(<Container />);
+      let reactCheckbox = TestUtils.findRenderedComponentWithType(instance, PaperCheckbox);
+      let domCheckbox = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox');
+
+      TestUtils.Simulate.focus(domCheckbox);
+      assert.equal(reactCheckbox.props.checked, false);
+
+      TestUtils.Simulate.keyDown(domCheckbox, { key: 'Space', keyCode: 32, which: 32 });
+      assert.equal(reactCheckbox.props.checked, true);
+
+      TestUtils.Simulate.keyDown(domCheckbox, { key: 'Space', keyCode: 32, which: 32 });
+      assert.equal(reactCheckbox.props.checked, false);
+    });
   });
 });

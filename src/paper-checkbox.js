@@ -37,6 +37,11 @@ function Checkbox({ checked, disabled, id, onClick, ...props }) {
         aria-disabled={!!disabled}
         tabIndex="0"
         onClick={e => onClick(e)}
+        onKeyDown={e => {
+          if (e.key === 'Space') {
+            onClick(e);
+          }
+        }}
       >
         {checkbox}
       </div>
