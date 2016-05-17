@@ -30,7 +30,11 @@ describe('PaperCheckbox', () => {
 
     it('renders two children (a checkbox and a label) when children are passed', () => {
       let shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(<PaperCheckbox id="x">click here</PaperCheckbox>);
+      shallowRenderer.render(
+        <PaperCheckbox id="x" onClick={() => {}}>
+          click here
+        </PaperCheckbox>
+      );
       let result = shallowRenderer.getRenderOutput();
       assert(Array.isArray(result.props.children));
       assert.equal(result.props.children.length, 2);
@@ -39,7 +43,11 @@ describe('PaperCheckbox', () => {
 
   describe('props', () => {
     it('renders children as a label', () => {
-      let instance = TestUtils.renderIntoDocument(<PaperCheckbox id="y">test label</PaperCheckbox>);
+      let instance = TestUtils.renderIntoDocument(
+        <PaperCheckbox id="y" onClick={() => {}}>
+          test label
+        </PaperCheckbox>
+      );
       let label = TestUtils.findRenderedDOMComponentWithClass(instance, 'checkbox-label');
       assert.equal(label.textContent, 'test label');
     });
@@ -56,6 +64,7 @@ describe('PaperCheckbox', () => {
         return (
           <div>
             <PaperCheckbox
+              id="my-checkbox"
               checked={this.state.checked}
               onClick={() => this.setState({ checked: !this.state.checked })}
             >
