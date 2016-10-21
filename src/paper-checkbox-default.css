@@ -47,7 +47,7 @@
 }
 
 .paper-checkbox [aria-checked="true"] .checkbox .checkmark {
-  animation: checkmark-expand 140ms ease-out forwards;
+  /* animation: checkmark-expand 140ms ease-out forwards; */
 }
 
 @keyframes checkmark-expand {
